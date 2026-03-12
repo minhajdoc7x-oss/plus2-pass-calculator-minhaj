@@ -38,7 +38,6 @@ h2{
 color:#1e3c72;
 margin-bottom:10px;
 font-weight:600;
-font-size:1.5rem;
 }
 
 .line{
@@ -57,10 +56,8 @@ margin-bottom:20px;
 label{
 display:block;
 margin-bottom:8px;
-color:#333;
 font-size:0.85rem;
 font-weight:600;
-text-transform:uppercase;
 }
 
 select,input{
@@ -68,7 +65,6 @@ width:100%;
 padding:14px;
 border:2px solid #edf2f7;
 border-radius:15px;
-outline:none;
 font-size:1rem;
 background:#f8fafc;
 }
@@ -83,13 +79,11 @@ border-radius:15px;
 font-size:1.1rem;
 font-weight:600;
 cursor:pointer;
-box-shadow:0 4px 15px rgba(46,204,113,0.3);
 transition:0.3s;
 }
 
 button:hover{
 background:#27ae60;
-transform:translateY(-2px);
 }
 
 #result{
@@ -97,79 +91,27 @@ margin-top:25px;
 padding:20px;
 border-radius:15px;
 display:none;
-animation:slideUp 0.4s ease-out;
 }
 
 .pass-card{
 background:#dcfce7;
 color:#166534;
-border:1px solid #bbf7d0;
 }
 
 .need-card{
 background:#fef9c3;
 color:#854d0e;
-border:1px solid #fef08a;
 }
 
 .big-mark{
 font-size:2rem;
 font-weight:700;
 display:block;
-margin:5px 0;
 }
 
 .malayalam-text{
 font-weight:700;
 color:#ff3b3b;
-display:block;
-margin-top:5px;
-}
-
-.footer-section{
-margin-top:30px;
-border-top:1px solid #eee;
-padding-top:20px;
-}
-
-.dev-by{
-font-size:0.7rem;
-font-weight:700;
-color:#888;
-letter-spacing:2px;
-margin-bottom:10px;
-}
-
-.animated-name{
-display:flex;
-justify-content:center;
-gap:4px;
-}
-
-.animated-name span{
-display:inline-block;
-font-size:2rem;
-font-weight:900;
-color:#4876ff;
-animation:bounce 1.5s infinite ease-in-out;
-}
-
-.animated-name span:nth-child(1){animation-delay:0.1s;}
-.animated-name span:nth-child(2){animation-delay:0.2s;}
-.animated-name span:nth-child(3){animation-delay:0.3s;}
-.animated-name span:nth-child(4){animation-delay:0.4s;}
-.animated-name span:nth-child(5){animation-delay:0.5s;}
-.animated-name span:nth-child(6){animation-delay:0.6s;}
-
-@keyframes bounce{
-0%,100%{transform:translateY(0);}
-50%{transform:translateY(-15px);}
-}
-
-.copy{
-margin-top:15px;
-font-size:0.75rem;
-color:#555;
 }
 
 </style>
@@ -186,43 +128,30 @@ color:#555;
 <label>Select Subject</label>
 
 <select id="subject" onchange="updateMaxMark()">
-
 <option value="" selected disabled>-- Select Subject --</option>
-
 <option value="80">Business Studies</option>
 <option value="80">Economics</option>
 <option value="80">English</option>
 <option value="80">Second Language</option>
-
 <option value="60">Accountancy</option>
 <option value="60">Computer Application</option>
-
 </select>
 
 </div>
 
 <div class="input-group">
 <label>Plus One TE Mark</label>
-<input type="number" id="p1Mark" placeholder="Enter mark here..." min="0" max="80">
+<input type="number" id="p1Mark" placeholder="Enter mark..." min="0" max="80">
 </div>
 
 <button id="checkBtn" onclick="calculate()">Check Now</button>
 
 <div id="result"></div>
 
-<div class="footer-section">
-
-<div class="dev-by">DEVELOPED BY</div>
-
-<div class="animated-name">
-<span>M</span><span>I</span><span>N</span><span>H</span><span>A</span><span>J</span>
 </div>
 
-<div class="copy">Plus Two Exam Pass Portal © 2026</div>
-
-</div>
-
-</div>
+<!-- CONFETTI LIBRARY -->
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
 <script>
 
@@ -235,11 +164,20 @@ if(subjectValue==="80"){
 markInput.max=80;
 markInput.placeholder="Enter mark (Max 80)";
 }
-
 else if(subjectValue==="60"){
 markInput.max=60;
 markInput.placeholder="Enter mark (Max 60)";
 }
+
+}
+
+function celebratePass(){
+
+confetti({
+particleCount:200,
+spread:120,
+origin:{y:0.6}
+});
 
 }
 
@@ -256,7 +194,6 @@ const type=parseInt(subjectValue);
 const subjectName=document.getElementById('subject').selectedOptions[0].text;
 
 const p1=parseFloat(document.getElementById('p1Mark').value);
-
 const resultDiv=document.getElementById('result');
 
 if(isNaN(p1)){
@@ -270,6 +207,8 @@ let p2Required=totalNeeded-p1;
 resultDiv.style.display="block";
 
 if(p2Required<=0){
+
+celebratePass();
 
 resultDiv.className="pass-card";
 
@@ -294,8 +233,6 @@ resultDiv.innerHTML=`
 }
 
 </script>
-<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
 </body>
 </html>
-
