@@ -34,7 +34,6 @@ origin:{x:x,y:y}
 });
 
 }
-
 function calculate(){
 
 const subjectValue=document.getElementById('subject').value;
